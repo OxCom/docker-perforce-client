@@ -13,13 +13,13 @@ jobs:
                     name: "Build ubuntu image"
                     command: |
                         docker login -u ${DOCKER_HUB_USER_ID} -p ${DOCKER_HUB_PWD}
-                        docker build . --rm --tag ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu --tag ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:${CIRCLE_TAG} --tag ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:latest -f ubuntu/Dockerfile
+                        docker build . --rm --tag ${DOCKER_HUB_USER_ID}/perforce-client:ubuntu --tag ${DOCKER_HUB_USER_ID}/perforce-client:ubuntu-${CIRCLE_TAG} --tag ${DOCKER_HUB_USER_ID}/perforce-client:ubuntu-latest -f ubuntu/Dockerfile
             -   run:
                     name: "Publish ubuntu image"
                     command: |
-                        docker push ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu
-                        docker push ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:latest
-                        docker push ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:${CIRCLE_TAG}
+                        docker push ${DOCKER_HUB_USER_ID}/perforce-client:ubuntu
+                        docker push ${DOCKER_HUB_USER_ID}/perforce-client:ubuntu-latest
+                        docker push ${DOCKER_HUB_USER_ID}/perforce-client:ubuntu-${CIRCLE_TAG}
 workflows:
     version: 2
     deploy:
