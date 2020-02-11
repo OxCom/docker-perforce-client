@@ -1,7 +1,12 @@
 # docker-perforce-client
 CLI [perforce](https://www.perforce.com/) client.
 
-## Build
+## Docker
+```bash
+docker pull docker pull oxcom/perforce-client:ubuntu-2019.2.1908095
+```
+
+## Custom build
 ```bash
 docker build . --rm -t docker-perforce-client/ubuntu:latest -f ubuntu/Dockerfile
 ```
@@ -10,7 +15,7 @@ docker build . --rm -t docker-perforce-client/ubuntu:latest -f ubuntu/Dockerfile
 Helix Core P4 [Command Reference](https://www.perforce.com/manuals/cmdref/Content/CmdRef/Home-cmdref.html)
 
 ```bash
-docker run -it --rm -e P4HOST="$(hostname)" -e P4CLIENT=workspace -e P4USER=root -e P4PASSWD=root docker-perforce-client/ubuntu:latest /bin/bash
+docker run -it --rm -e P4HOST="$(hostname)" -e P4CLIENT=workspace -e P4USER=root -e P4PASSWD=root oxcom/perforce-client:ubuntu-2019.2.1908095 /bin/bash
 
 p4 client -S //depot/main ${P4CLIENT}
 p4 sync -f
