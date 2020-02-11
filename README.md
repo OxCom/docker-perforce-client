@@ -12,7 +12,7 @@ Helix Core P4 [Command Reference](https://www.perforce.com/manuals/cmdref/Conten
 ```bash
 docker run -it --rm -e P4HOST="$(hostname)" -e P4CLIENT=workspace -e P4USER=root -e P4PASSWD=root docker-perforce-client/ubuntu:latest /bin/bash
 
-p4 client -S //deploy/main ${P4CLIENT}
+p4 client -S //depot/main ${P4CLIENT}
 p4 sync -f
 p4 client -d ${P4CLIENT}
 ```
