@@ -1,0 +1,32 @@
+version: 2
+jobs:
+    build_ubuntu:
+        filters:
+            tags:
+                only: /.*/
+        docker:
+            -   image: circleci/buildpack-deps
+        steps:
+            - checkout
+            - setup_remote_docker
+            -   run:
+                    name: "Build ubuntu image"
+                    command: |
+                        docker login -u ${DOCKER_HUB_USER_ID} -p ${DOCKER_HUB_PWD}
+                        docker build . --rm --tag ${DOCKER_HUB_USER_ID}/perforce-client/debian --tag ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:${CIRCLE_TAG} --tag ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:latest -f debian/Dockerfile
+            -   run:
+                    name: "Publish ubuntu image"
+                    command: |
+                        docker push ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu
+                        docker push ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:latest
+                        docker push ${DOCKER_HUB_USER_ID}/perforce-client/ubuntu:${CIRCLE_TAG}
+workflows:
+    version: 2
+    deploy:
+        jobs:
+            -   build_ubuntu:
+                    filters:
+                        tags:
+                            only: /^.*/
+                        branches:
+                            ignore: /.*/
