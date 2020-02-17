@@ -31,4 +31,3 @@ RUN apt-get update \
               /var/cache/apt/*.bin
 
 WORKDIR /var/p4/project/
-VOLUME /var/p4/project
